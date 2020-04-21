@@ -1,6 +1,6 @@
 <template>
   <v-touch v-on:tap="onTap">
-    <span v-for="i in this.bubbleCount" v-bind:key="i" >
+    <span v-for="i in this.bubbleCount" v-bind:key="i">
       <Bubble :pos="pos(i)"></Bubble>
     </span>
   </v-touch>
@@ -10,9 +10,9 @@
 // @ is an alias to /src
 import Bubble from "@/components/Bubble.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import VueTouch  from 'vue-touch';
+import VueTouch from "vue-touch";
 
-Vue.use(VueTouch, {name: 'v-touch'})
+Vue.use(VueTouch, { name: "v-touch" });
 
 export default {
   name: "Home",
@@ -22,15 +22,15 @@ export default {
   props: {
     bubbleCount: {
       type: Number,
-      default: 100,
+      default: 100
     }
   },
   data() {
     return {
-      pos: (i) => {
-        return (i/this.bubbleCount)*100
+      pos: i => {
+        return (i / this.bubbleCount) * 100;
       }
-    }
+    };
   },
   methods: {
     onTap() {
@@ -41,9 +41,9 @@ export default {
 </script>
 
 <style>
-  body {
-		background-color: black;
-		z-index: -1;
-		overflow: hidden;
-	}
+body {
+  background-color: black;
+  z-index: -1;
+  overflow: hidden;
+}
 </style>
