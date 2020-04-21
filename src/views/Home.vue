@@ -2,7 +2,7 @@
   <span>
     <v-touch v-on:tap="onTap">
       <span v-for="i in this.bubbleCount" v-bind:key="i">
-        <Bubble :pos="pos(i)" :isMulticolor="isMulticolor"></Bubble>
+        <Bubble :pos="pos(i)" :colorScheme="colorScheme"></Bubble>
       </span>
     </v-touch>
 
@@ -48,7 +48,7 @@ export default {
       joke: new Joke(undefined, undefined, undefined),
       jokesApi: new JokesAPI(),
       loading: true,
-      isMulticolor: false
+      colorScheme: 'grayscale'
     };
   },
   created() {
@@ -66,7 +66,11 @@ export default {
       this.showModal();
     },
     onKeyPress(e) {
-      if (e.keyCode == 109) this.isMulticolor = !this.isMulticolor;
+      if (e.keyCode == 109) this.toggleColorScheme('multicolor');
+      if (e.keyCode == 98) this.toggleColorScheme('blue');
+    },
+    toggleColorScheme(scheme) {
+      this.colorScheme = this.colorScheme == scheme ? 'grayscale' : scheme;
     },
     showModal() {
       this.resetJoke();
