@@ -2,7 +2,7 @@
   <span>
     <v-touch v-on:tap="onTap">
       <span v-for="i in this.bubbleCount" v-bind:key="i">
-        <Bubble :pos="pos(i)"></Bubble>
+        <Bubble :pos="pos(i)" :isMulticolor="isMulticolor"></Bubble>
       </span>
     </v-touch>
 
@@ -47,8 +47,15 @@ export default {
       isModalVisible: false,
       joke: new Joke(undefined, undefined, undefined),
       jokesApi: new JokesAPI(),
-      loading: true
+      loading: true,
+      isMulticolor: false
     };
+  },
+  created() {
+    window.addEventListener('keypress', this.onKeyPress);
+  },
+  destroyed() {
+    window.removeEventListener('keypress', this.onKeyPress);
   },
   methods: {
     mounted() {
@@ -57,6 +64,9 @@ export default {
     onTap() {
       console.log("Tapped");
       this.showModal();
+    },
+    onKeyPress(e) {
+      if (e.keyCode == 109) this.isMulticolor = !this.isMulticolor;
     },
     showModal() {
       this.resetJoke();

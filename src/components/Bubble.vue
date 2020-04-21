@@ -10,6 +10,7 @@ import { functions } from "../helpers/shared";
 export default class Bubble extends Vue {
   // @Prop() private bubbleCount!: number;
   @Prop() private pos!: number;
+  @Prop() private isMulticolor!: boolean;
 
   get styles() {
     return {
@@ -50,12 +51,13 @@ export default class Bubble extends Vue {
 
   private get bgColor() {
     // console.log(this.animationStyle)
-    return functions
-      .randomInt(50, 255)
-      .toString(16)
-      .padStart(2, "0")
-      .repeat(3);
+    const bgColor = this.isMulticolor ?
+      [...Array(3)].map(x => this.randomColor()).join('')
+      : this.randomColor().repeat(3);
+    return bgColor;
   }
+
+  private randomColor = () => functions.randomInt(50, 255).toString(16).padStart(2, "0");
 
   private get position() {
     return this.pos + 5;
