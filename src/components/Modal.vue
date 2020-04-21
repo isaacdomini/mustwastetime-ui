@@ -3,40 +3,37 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class Modal extends Vue {
-  private _header = "Header"; 
+  private _header = "Header";
   private _body: any = "Body";
 
-  get header() { return this._header; }
-  set header(value: string) { this._header = value; }
+  get header() {
+    return this._header;
+  }
+  set header(value: string) {
+    this._header = value;
+  }
 
-  get body() { return this._body; }
-  set body(value) { this._body = value; }
+  get body() {
+    return this._body;
+  }
+  set body(value) {
+    this._body = value;
+  }
 
   close() {
     this.$emit("close");
   }
-  
 }
-
-// export default {
-//   name: "Modal",
-//   data: () => ({
-//     author: "",
-//     name: ""
-//   }),
-//   methods: {
-//     close() {
-//       this.$emit("close");
-//     }
-//   }
-// };
 </script>
 
 <template>
   <transition name="modal-fade">
     <div class="modal-backdrop">
       <div class="modal">
-        <h1>Hello! I'm a Modal</h1>
+        <h1>{{ this.header }}</h1>
+        <slot name="content">
+          <p>Something went wrong</p>
+        </slot>
         <footer class="modal-footer">
           <slot name="footer">
             <button type="button" class="btn-green" @click="close">

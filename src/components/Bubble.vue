@@ -83,50 +83,50 @@ export default class Bubble extends Vue {
 <style lang="scss">
 @keyframes verticalup {
   0% {
-    transform: translateY(0);
+    transform: translateY(20);
   }
   100% {
-    transform: translateY(-110vh);
+    transform: translateY(-130vh);
   }
 }
 @keyframes verticaldown {
   0% {
-    transform: translateY(-110vh);
+    transform: translateY(-130vh);
   }
   100% {
-    transform: translateY(110vh);
+    transform: translateY(130vh);
   }
 }
 @keyframes diagonalupright {
   0% {
-    transform: translateY(-110vh);
+    transform: translateY(-130vh);
   }
   100% {
-    transform: translateY(110vh) translateX(110vw);
+    transform: translateY(130vh) translateX(130vw);
   }
 }
 @keyframes diagonalupleft {
   0% {
-    transform: translateY(-110vh);
+    transform: translateY(-130vh);
   }
   100% {
-    transform: translateY(110vh) translateX(-110vw);
+    transform: translateY(130vh) translateX(-130vw);
   }
 }
 @keyframes diagonaldownright {
   0% {
-    transform: translateY(0);
+    transform: translateY(20);
   }
   100% {
-    transform: translateY(-110vh) translateX(110vw);
+    transform: translateY(-130vh) translateX(130vw);
   }
 }
 @keyframes diagonaldownleft {
   0% {
-    transform: translateY(0);
+    transform: translateY(20);
   }
   100% {
-    transform: translateY(-110vh) translateX(-110vw);
+    transform: translateY(-130vh) translateX(-130vw);
   }
 }
 </style>
