@@ -15,13 +15,16 @@ export default class Joke {
   private type: string | undefined;
 
   static fromResponse(response: import("axios").AxiosResponse<any>): Joke {
-
     console.log(response);
     if (response.data.error == false) {
       if (response.data.type == "twopart") {
-        const joke = new Joke(undefined, response.data.setup, response.data.delivery);
+        const joke = new Joke(
+          undefined,
+          response.data.setup,
+          response.data.delivery
+        );
         joke.type = "twopart";
-        return joke
+        return joke;
       } else if (response.data.type == "single") {
         const joke = new Joke(response.data.joke, undefined, undefined);
         joke.type = "single";
@@ -29,18 +32,22 @@ export default class Joke {
       }
     }
     // throw new Error("Stupid system can't even get a joke! smh.");
-    const joke = new Joke("Stupid system can't even get a joke! smh.", undefined, undefined);
+    const joke = new Joke(
+      "Stupid system can't even get a joke! smh.",
+      undefined,
+      undefined
+    );
     joke.type = "single";
     return joke;
   }
 
-  public toString(): string{
-    if(this.type === "twopart"){
+  public toString(): string {
+    if (this.type === "twopart") {
       return `${this.setup}
       ...
-      ${this.delivery}\n`
-    }else {
-      return `${this.joke}\n`
+      ${this.delivery}\n`;
+    } else {
+      return `${this.joke}\n`;
     }
   }
 }

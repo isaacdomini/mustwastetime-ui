@@ -1,11 +1,10 @@
 <script lang="ts">
-import Joke from "@/model/joke";
 import { Component, Vue, Prop } from "vue-property-decorator";
-import JokesAPI from '../services/jokesapi';
+import Joke from "../model/joke";
 
 @Component
 export default class JokeView extends Vue {
-  @Prop() private joke!: any;
+  @Prop() private joke!: Joke;
   @Prop() private loading!: boolean;
 }
 </script>
@@ -13,10 +12,15 @@ export default class JokeView extends Vue {
 <template>
   <div class="joke-content">
     <div v-if="this.loading">
-      <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <div v-else>
-      {{joke.toString()}}
+      {{ joke.toString() }}
     </div>
   </div>
 </template>

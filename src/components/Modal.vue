@@ -4,20 +4,12 @@ import { Vue, Component } from "vue-property-decorator";
 @Component
 export default class Modal extends Vue {
   private _header = "Header";
-  private _body: any = "Body";
 
   get header() {
     return this._header;
   }
   set header(value: string) {
     this._header = value;
-  }
-
-  get body() {
-    return this._body;
-  }
-  set body(value) {
-    this._body = value;
   }
 
   close() {
