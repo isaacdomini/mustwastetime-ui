@@ -1,157 +1,112 @@
-<template>
-  <div class="modal-mask" v-show="show" transition="modal">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-header">
-          <slot name="header">default header</slot>
-        </div>
-
-        <div class="modal-body">
-          <slot name="body">default body</slot>
-        </div>
-
-        <div class="modal-footer">
-          <slot name="footer">
-            <button class="modal-button" @click="close">Close</button>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class Bubble extends Vue {
-  // @Prop() private bubbleCount!: number;
-  @Prop() private pos!: number;
+export default class Modal extends Vue {
+  private _header = "Header"; 
+  private _body: any = "Body";
 
-  get styles() {
-    return {
-      position: "absolute",
-      "list-style": "none",
-      display: "block",
-      "background-color": `#${this.bgColor}`,
-      /* biggest bubble */
-      bottom: "-100px",
-      animation: `${this.animationStyle} 20s infinite`,
-      "transition-timing-function": "linear",
-      "animation-timing-function": "linear",
-      /* bubble size for width/height */
-      width: `${this.size}px`,
-      height: `${this.size}px`,
-      "border-radius": `${this.size}px`,
-      /* bubbleCount/100 percent (+/- random 5) */
-      left: `${this.pos}%`,
-      /* random second 0 for immediate */
-      "animation-delay": `${this.delay}s`,
-      /* bubble speed */
-      "animation-duration": `${this.duration}s`
-    };
+  get header() { return this._header; }
+  set header(value: string) { this._header = value; }
+
+  get body() { return this._body; }
+  set body(value) { this._body = value; }
+
+  close() {
+    this.$emit("close");
   }
-
-  // private size = -1;
-
-  private get animationStyle(): string {
-    return [
-      "verticalup",
-      "verticaldown",
-      "diagonalupright",
-      "diagonalupleft",
-      "diagonaldownleft",
-      "diagonalupright"
-    ][this.randomInt(6)];
-  }
-
-  private get bgColor() {
-    // console.log(this.animationStyle)
-    return this.randomInt(50, 255)
-      .toString(16)
-      .padStart(2, "0")
-      .repeat(3);
-  }
-
-  private get position() {
-    return this.pos + 5;
-  }
-
-  private get delay() {
-    return this.randomNumber(0, 15);
-  }
-
-  private get duration() {
-    return this.randomNumber(10, 25);
-  }
-
-  // TODO: move to shared class?
-  private randomInt = (max: number, min = 0): number => {
-    return Math.floor(Math.random() * Math.floor(max - min)) + min;
-  };
-
-  private randomNumber = (max: number, min = 0): number => {
-    return Math.random() * (max - min) + min;
-  };
-
-  private get size(): number {
-    // if (this.size === -1) this.size = this.randomInt(100, 20);
-    // console.log(this.size)
-    // size = size === -1 ? this.randomInt(100) : size
-    return this.randomInt(100, 20);
-    // return this.size;
-  }
+  
 }
+
+// export default {
+//   name: "Modal",
+//   data: () => ({
+//     author: "",
+//     name: ""
+//   }),
+//   methods: {
+//     close() {
+//       this.$emit("close");
+//     }
+//   }
+// };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@keyframes verticalup {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-110vh);
-  }
+<template>
+  <transition name="modal-fade">
+    <div class="modal-backdrop">
+      <div class="modal">
+        <h1>Hello! I'm a Modal</h1>
+        <footer class="modal-footer">
+          <slot name="footer">
+            <button type="button" class="btn-green" @click="close">
+              Close me
+            </button>
+          </slot>
+        </footer>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<style>
+.modal-fade-enter,
+.modal-fade-leave-active {
+  opacity: 0;
 }
-@keyframes verticaldown {
-  0% {
-    transform: translateY(-110vh);
-  }
-  100% {
-    transform: translateY(110vh);
-  }
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
 }
-@keyframes diagonalupright {
-  0% {
-    transform: translateY(-110vh);
-  }
-  100% {
-    transform: translateY(110vh) translateX(110vw);
-  }
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-@keyframes diagonalupleft {
-  0% {
-    transform: translateY(-110vh);
-  }
-  100% {
-    transform: translateY(110vh) translateX(-110vw);
-  }
+.modal {
+  background: #ffffff;
+  box-shadow: 2px 2px 20px 1px;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
-@keyframes diagonaldownright {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-110vh) translateX(110vw);
-  }
+.modal-header,
+.modal-footer {
+  padding: 5px;
+  text-align: center;
 }
-@keyframes diagonaldownleft {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-110vh) translateX(-110vw);
-  }
+.modal-footer {
+  border-top: 1px solid #eeeeee;
+  justify-content: flex-end;
+}
+.btn-close {
+  border: none;
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+  background: transparent;
+  text-align: right;
+}
+.btn-green {
+  color: white;
+  background: #828282;
+  border: 1px solid #828282;
+  border-radius: 2px;
+  margin: 5px;
+}
+.input {
+  margin-top: 5px;
+}
+.added-text {
+  margin-block-end: -10px;
+  margin-block-start: 0.5rem;
 }
 </style>
