@@ -64,6 +64,8 @@ export default {
     onTap() {
       console.log("Tapped");
       this.showModal();
+      this.$store.commit('clickBubble');
+      console.log('number of bubblesClicked',this.$store.state.bubblesClicked)
     },
     onKeyPress(e) {
       if (e.keyCode == 109) this.toggleColorScheme('multicolor');
