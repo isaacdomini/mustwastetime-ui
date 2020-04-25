@@ -4,8 +4,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    bubblesClicked: 0,
+  },
+  mutations: {
+    clickBubble(state) {
+      state.bubblesClicked++;
+    }
+  },
   actions: {},
   modules: {}
 });
