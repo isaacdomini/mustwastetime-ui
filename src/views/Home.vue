@@ -36,7 +36,7 @@ export default {
   props: {
     bubbleCount: {
       type: Number,
-      default: 100
+      default: 500
     }
   },
   data() {
